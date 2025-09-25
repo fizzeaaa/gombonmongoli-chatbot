@@ -1,0 +1,32 @@
+{
+  "name": "gombonmongoli-chatbot",
+  "version": "1.0.0",
+  "description": "AI-powered evolving chatbot with roasting capabilities",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "cd backend && npm install && npm start",
+    "dev": "cd backend && npm run dev",
+    "install-deps": "cd backend && npm install",
+    "build": "echo 'No build step required for this project'",
+    "test": "cd backend && npm test"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "keywords": [
+    "chatbot",
+    "ai",
+    "roasting",
+    "evolution",
+    "community",
+    "express",
+    "nodejs"
+  ],
+  "author": "Gombonmongoli Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "your-github-repo-url-here"
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "learning_triggers": [
+    "new vocabulary",
+    "slang terms",
+    "insults",
+    "emotional expressions",
+    "internet terminology"
+  ],
+  "community_vocabulary": [
+    "cope",
+    "seethe", 
+    "based",
+    "cringe",
+    "ratio",
+    "simp",
+    "sus",
+    "no cap",
+    "bussin",
+    "periodt",
+    "salty",
+    "triggered",
+    "woke",
+    "karen",
+    "boomer"
+  ],
+  "psychological_keywords": {
+    "insecurity": ["validation", "approval", "self-doubt", "confidence"],
+    "loneliness": ["friends", "social", "alone", "isolated"],
+    "anxiety": ["worry", "stress", "nervous", "afraid"],
+    "depression": ["sad", "down", "hopeless", "tired"],
+    "anger": ["mad", "furious", "hate", "annoyed"],
+    "defensiveness": ["excuse", "justify", "blame", "deny"]
+  },
+  "topic_categories": {
+    "work": ["job", "career", "boss", "salary", "promotion", "office"],
+    "dating": ["relationship", "crush", "single", "dating", "love", "breakup"],
+    "gaming": ["game", "console", "pc", "stream", "raid", "noob"],
+    "crypto": ["bitcoin", "crypto", "blockchain", "hodl", "moon", "diamond hands"],
+    "social_media": ["instagram", "tiktok", "twitter", "followers", "likes", "viral"],
+    "appearance": ["ugly", "fat", "skinny", "hair", "clothes", "style"]
+  },
+  "vulnerability_indicators": [
+    "seeking validation",
+    "oversharing personal info",
+    "defensive responses",
+    "trying too hard to be funny",
+    "mentioning accomplishments unprompted",
+    "asking for advice repeatedly"
+  ]
+}

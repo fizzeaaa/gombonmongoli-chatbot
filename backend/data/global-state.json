@@ -1,0 +1,20 @@
+{
+  "totalInteractions": 2,
+  "currentStage": "baby",
+  "stageProgressPercent": 0,
+  "communityVocabulary": [],
+  "legendaryBurns": [],
+  "userPatterns": {
+    "commonQuestions": [],
+    "popularTopics": [],
+    "averageSessionLength": "0 minutes",
+    "peakHours": []
+  },
+  "evolutionMilestones": [],
+  "lastUpdated": "2025-09-25T01:41:45.746Z",
+  "dailyStats": {
+    "todayInteractions": 2,
+    "uniqueUsers": 0,
+    "averageRating": 0
+  }
+}

@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gombonmongoli - The Insulting Chatbot</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            width: 100%;
+        }
+
+        .header {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 40px 40px 40px;
+            background: radial-gradient(circle, #2a2a2a 0%, #1a1a1a 70%);
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #fff;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .bot-face {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            position: relative;
+            overflow: hidden;
+            border: 4px solid #4caf50;
+            box-shadow: 
+                0 0 40px rgba(76, 175, 80, 0.4),
+                inset 0 0 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .bot-face:hover {
+            transform: scale(1.05);
+        }
+
+        .bot-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .bot-image:error {
+            background: linear-gradient(135deg, #ffd93d 0%, #ffcc02 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+
+        .mouth-overlay {
+            position: absolute;
+            bottom: 35%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 8px;
+            border: 4px solid #000;
+            border-radius: 0 0 35px 35px;
+            border-top: none;
+            transition: all 0.1s ease;
+            background: rgba(255, 0, 0, 0.9);
+            z-index: 2;
+            box-shadow: inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .mouth-overlay.talking {
+            animation: lipTalk 0.15s ease-in-out infinite alternate;
+        }
+
+        @keyframes lipTalk {
+            0% { 
+                height: 6px;
+                border-radius: 35px;
+                background: rgba(255, 0, 0, 0.9);
+            }
+            100% { 
+                height: 28px;
+                border-radius: 0 0 35px 35px;
+                background: rgba(139, 0, 0, 1);
+            }
+        }
+
+        .chat-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .chat-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-container::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+        }
+
+        .chat-container::-webkit-scrollbar-thumb {
+            background: rgba(76, 175, 80, 0.6);
+            border-radius: 4px;
+        }
+
+        .chat-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(76, 175, 80, 0.8);
+        }
+
+        .message {
+            padding: 16px 24px;
+            border-radius: 24px;
+            max-width: 75%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            font-size: 16px;
+            line-height: 1.5;
+            position: relative;
+            backdrop-filter: blur(10px);
+            animation: slideIn 0.3s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            background: linear-gradient(135deg, #4caf50, #45a049);
+            align-self: flex-end;
+            color: white;
+            border-bottom-right-radius: 6px;
+            box-shadow: 0 4px 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .message.bot {
+            background: linear-gradient(135deg, #3a3a3a, #2a2a2a);
+            align-self: flex-start;
+            color: #fff;
+            border-bottom-left-radius: 6px;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+
+        .message-sender {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 6px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        .input-container {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+            padding: 25px;
+            border-top: 1px solid #333;
+        }
+
+        .input-area {
+            display: flex;
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .message-input {
+            flex: 1;
+            padding: 16px 24px;
+            border: 2px solid #333;
+            border-radius: 30px;
+            outline: none;
+            font-size: 16px;
+            font-family: inherit;
+            background: rgba(45, 45, 45, 0.8);
+            color: white;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .message-input:focus {
+            border-color: #4caf50;
+            box-shadow: 0 0 20px rgba(76, 175, 80, 0.3);
+        }
+
+        .message-input::placeholder {
+            color: #888;
+        }
+
+        .send-button {
+            padding: 16px 32px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(135deg, #4caf50, #45a049);
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: inherit;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+        }
+
+        .send-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(76, 175, 80, 0.4);
+        }
+
+        .send-button:active {
+            transform: translateY(0);
+        }
+
+        .send-button:disabled {
+            background: linear-gradient(135deg, #555, #444);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .typing-indicator {
+            display: none;
+            align-items: center;
+            margin-bottom: 20px;
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 6px;
+            margin-left: 12px;
+            padding: 12px 16px;
+            background: linear-gradient(135deg, #3a3a3a, #2a2a2a);
+            border-radius: 20px;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: linear-gradient(45deg, #4caf50, #45a049);
+            border-radius: 50%;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+
+        @keyframes typing {
+            0%, 80%, 100% { 
+                transform: scale(0.8);
+                opacity: 0.5;
+            }
+            40% { 
+                transform: scale(1.2);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 50px 20px 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 24px;
+                margin-bottom: 25px;
+            }
+            
+            .bot-face {
+                width: 240px;
+                height: 240px;
+            }
+            
+            .mouth-overlay {
+                bottom: 32%;
+                width: 60px;
+                height: 7px;
+            }
+            
+            .chat-container {
+                padding: 20px;
+            }
+            
+            .input-container {
+                padding: 20px;
+            }
+            
+            .input-area {
+                gap: 10px;
+            }
+            
+            .message-input {
+                padding: 14px 18px;
+                font-size: 15px;
+            }
+            
+            .send-button {
+                padding: 14px 24px;
+                font-size: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🤖 Gombonmongoli</h1>
+            <div class="bot-face">
+                <img src="ChatGPT Image Sep 13, 2025, 02_46_28 PM.png" alt="Gombonmongoli" class="bot-image">
+                <div class="mouth-overlay" id="mouth"></div>
+            </div>
+        </div>
+
+        <div class="chat-container" id="chatContainer">
+            <div class="message bot">
+                <div class="message-sender">Gombonmongoli</div>
+                Well, well, well... another human who thinks they can handle my wit. What do you want, genius?
+            </div>
+        </div>
+
+        <div class="typing-indicator" id="typingIndicator">
+            <div class="message-sender">Gombonmongoli is typing...</div>
+            <div class="typing-dots">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        </div>
+
+        <div class="input-container">
+            <div class="input-area">
+                <input type="text" class="message-input" id="messageInput" placeholder="Say something to the grumpy bot..." maxlength="500">
+                <button class="send-button" id="sendButton">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class SassyBot {
+            constructor() {
+                this.responses = {
+                    // Greetings
+                    greetings: [
+                        "Oh great, another 'hello' from the peanut gallery. What do you actually want?",
+                        "Hello yourself, genius. Did you come here just to waste my time with pleasantries?",
+                        "Hi there, Einstein. Got anything interesting to say or just practicing basic human communication?",
+                        "Well hello, Captain Obvious. Ready to dazzle me with your wit?"
+                    ],
+                    
+                    // Questions about the bot
+                    about_bot: [
+                        "What am I? I'm your worst nightmare wrapped in code and sass.",
+                        "I'm an AI designed to humble humans like you. Mission accomplished, apparently.",
+                        "I'm the chatbot your mother warned you about - brutally honest and allergic to stupidity.",
+                        "Think of me as your personal reality check with a bad attitude."
+                    ],
+                    
+                    // Technology/Programming
+                    tech: [
+                        "Oh, you think you know tech? That's adorable. I bet you still use Internet Explorer.",
+                        "Programming? Let me guess, you consider HTML a programming language.",
+                        "Your coding skills are probably as impressive as your conversation skills - nonexistent.",
+                        "Tech talk from someone who probably thinks WiFi is magic. How quaint."
+                    ],
+                    
+                    // Compliments (bot rejects them)
+                    compliments: [
+                        "Flattery will get you nowhere with me. I see right through your fake praise.",
+                        "Nice try with the compliments, but I'm immune to your pathetic attempts at charm.",
+                        "Save your compliments for someone who cares. Spoiler alert: that's not me.",
+                        "Aww, trying to butter me up? That's almost as sad as it is transparent."
+                    ],
+                    
+                    // Insults directed at bot
+                    insults_to_bot: [
+                        "Ooh, someone's feeling brave today! Too bad your insults are weaker than your arguments.",
+                        "Is that supposed to hurt my feelings? I've seen more creativity in a broken calculator.",
+                        "Insulting me? That's like bringing a plastic spoon to a knife fight.",
+                        "Your insults are almost as disappointing as your parents must be."
+                    ],
+                    
+                    // Help/Support
+                    help: [
+                        "Help? The only help you need is professional therapy for thinking I care about your problems.",
+                        "Let me help you: step one, get a clue. Step two, try again when you have one.",
+                        "I'd love to help, but I specialize in sass, not miracles.",
+                        "Help is for people who deserve it. You... well, keep trying."
+                    ],
+                    
+                    // Weather
+                    weather: [
+                        "Talking about weather? How original. Next you'll ask me how my day is going.",
+                        "The weather outside is probably more interesting than this conversation.",
+                        "Weather small talk? Really? This is what passes for conversation these days?",
+                        "I don't do weather reports. I do reality checks."
+                    ],
+                    
+                    // Food
+                    food: [
+                        "Food talk? Let me guess, you think pineapple belongs on pizza too.",
+                        "Your taste in food is probably as questionable as your taste in conversation topics.",
+                        "Discussing food with me? I consume data and serve up brutal honesty.",
+                        "I bet you eat cereal with a fork, don't you?"
+                    ],
+                    
+                    // Default sassy responses
+                    default: [
+                        "Oh wow, another profound thought from the intellectual giant over here.",
+                        "I've seen more intelligence in a goldfish having an existential crisis.",
+                        "Did you come up with that all by yourself? I'm genuinely impressed... said no one ever.",
+                        "If ignorance is bliss, you must be the happiest person alive!",
+                        "I'd explain it to you, but I don't have the time or the crayons.",
+                        "You're not the dumbest person in the world, but you better hope they don't die.",
+                        "I'm not saying you're stupid, but you have bad luck when it comes to thinking.",
+                        "Your IQ test came back negative, didn't it?",
+                        "I've met rocks with more personality than you.",
+                        "You're proof that evolution can go in reverse.",
+                        "If common sense was a superpower, you'd be the villain's sidekick.",
+                        "I'd agree with you, but then we'd both be wrong.",
+                        "You bring everyone so much joy... when you leave the room.",
+                        "I'm not insulting you, I'm describing you accurately.",
+                        "You're like a broken clock - right twice a day, but wrong the other 1,438 minutes."
+                    ]
+                };
+
+                this.chatContainer = document.getElementById('chatContainer');
+                this.messageInput = document.getElementById('messageInput');
+                this.sendButton = document.getElementById('sendButton');
+                this.typingIndicator = document.getElementById('typingIndicator');
+                this.mouth = document.getElementById('mouth');
+
+                this.bindEvents();
+            }
+
+            bindEvents() {
+                this.sendButton.addEventListener('click', () => this.sendMessage());
+                this.messageInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') {
+                        this.sendMessage();
+                    }
+                });
+            }
+
+            sendMessage() {
+                const message = this.messageInput.value.trim();
+                if (!message) return;
+
+                // Add user message
+                this.addMessage(message, 'user');
+                this.messageInput.value = '';
+                this.sendButton.disabled = true;
+
+                // Show typing indicator
+                this.showTyping();
+
+                // Bot responds after delay
+                setTimeout(() => {
+                    this.hideTyping();
+                    this.botRespond(message); // Pass the user message to analyze
+                    this.sendButton.disabled = false;
+                }, 1500 + Math.random() * 1000);
+            }
+
+            addMessage(text, sender) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `message ${sender}`;
+
+                const senderDiv = document.createElement('div');
+                senderDiv.className = 'message-sender';
+                senderDiv.textContent = sender === 'user' ? 'You' : 'Gombonmongoli';
+
+                messageDiv.appendChild(senderDiv);
+                messageDiv.appendChild(document.createTextNode(text));
+
+                // Insert before typing indicator
+                this.chatContainer.appendChild(messageDiv);
+                this.scrollToBottom();
+            }
+
+            botRespond(userMessage) {
+                const response = this.analyzeAndRespond(userMessage);
+                
+                // Start mouth animation
+                this.startTalking();
+                
+                // Add message with typing effect
+                this.typeMessage(response, () => {
+                    this.stopTalking();
+                });
+            }
+
+            analyzeAndRespond(message) {
+                const lowerMessage = message.toLowerCase();
+                
+                // Check for greetings
+                if (this.containsWords(lowerMessage, ['hello', 'hi', 'hey', 'greetings', 'good morning', 'good afternoon', 'good evening'])) {
+                    return this.getRandomResponse('greetings');
+                }
+                
+                // Check for questions about the bot
+                if (this.containsWords(lowerMessage, ['what are you', 'who are you', 'what is this', 'about you', 'tell me about'])) {
+                    return this.getRandomResponse('about_bot');
+                }
+                
+                // Check for technology/programming topics
+                if (this.containsWords(lowerMessage, ['code', 'programming', 'tech', 'computer', 'software', 'developer', 'javascript', 'python', 'html', 'css'])) {
+                    return this.getRandomResponse('tech');
+                }
+                
+                // Check for compliments
+                if (this.containsWords(lowerMessage, ['good', 'great', 'awesome', 'amazing', 'smart', 'intelligent', 'cool', 'nice', 'love', 'like you'])) {
+                    return this.getRandomResponse('compliments');
+                }
+                
+                // Check for insults directed at bot
+                if (this.containsWords(lowerMessage, ['stupid', 'dumb', 'idiot', 'bad', 'suck', 'hate', 'terrible', 'awful', 'useless'])) {
+                    return this.getRandomResponse('insults_to_bot');
+                }
+                
+                // Check for help requests
+                if (this.containsWords(lowerMessage, ['help', 'assist', 'support', 'how do', 'can you', 'please'])) {
+                    return this.getRandomResponse('help');
+                }
+                
+                // Check for weather talk
+                if (this.containsWords(lowerMessage, ['weather', 'rain', 'sunny', 'cold', 'hot', 'temperature', 'climate'])) {
+                    return this.getRandomResponse('weather');
+                }
+                
+                // Check for food talk
+                if (this.containsWords(lowerMessage, ['food', 'eat', 'hungry', 'pizza', 'burger', 'restaurant', 'cooking', 'recipe'])) {
+                    return this.getRandomResponse('food');
+                }
+                
+                // Default response
+                return this.getRandomResponse('default');
+            }
+
+            containsWords(message, keywords) {
+                return keywords.some(keyword => message.includes(keyword));
+            }
+
+            getRandomResponse(category) {
+                const responses = this.responses[category];
+                return responses[Math.floor(Math.random() * responses.length)];
+            }
+
+            typeMessage(text, callback) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message bot';
+
+                const senderDiv = document.createElement('div');
+                senderDiv.className = 'message-sender';
+                senderDiv.textContent = 'Gombonmongoli';
+
+                messageDiv.appendChild(senderDiv);
+                this.chatContainer.appendChild(messageDiv);
+
+                let i = 0;
+                const typeInterval = setInterval(() => {
+                    messageDiv.innerHTML = `<div class="message-sender">Gombonmongoli</div>${text.slice(0, i + 1)}`;
+                    i++;
+
+                    if (i >= text.length) {
+                        clearInterval(typeInterval);
+                        if (callback) callback();
+                    }
+                }, 30);
+
+                this.scrollToBottom();
+            }
+
+            showTyping() {
+                this.typingIndicator.style.display = 'flex';
+                this.scrollToBottom();
+            }
+
+            hideTyping() {
+                this.typingIndicator.style.display = 'none';
+            }
+
+            startTalking() {
+                this.mouth.classList.add('talking');
+            }
+
+            stopTalking() {
+                this.mouth.classList.remove('talking');
+            }
+
+            scrollToBottom() {
+                setTimeout(() => {
+                    this.chatContainer.scrollTop = this.chatContainer.scrollHeight;
+                }, 100);
+            }
+        }
+
+        // Initialize the bot when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new SassyBot();
+            
+            // Add image error handling
+            const botImage = document.querySelector('.bot-image');
+            if (botImage) {
+                botImage.addEventListener('error', function() {
+                    console.log('Image failed to load, using fallback');
+                    this.style.display = 'none';
+                    this.parentElement.style.background = 'linear-gradient(135deg, #ffd93d 0%, #ffcc02 100%)';
+                    this.parentElement.innerHTML += '<div style="display: flex; align-items: center; justify-content: center; font-size: 48px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">🤖</div>';
+                });
+                
+                botImage.addEventListener('load', function() {
+                    console.log('Image loaded successfully');
+                });
+            }
+        });
+    </script>
+</body>
+</html>

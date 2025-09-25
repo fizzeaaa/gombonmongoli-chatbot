@@ -1,0 +1,25 @@
+{
+  "sessions": {
+    "session_1757799066543_wd5o59yms": {
+      "userId": "user_1757799066543_g2wjxemlo",
+      "startTime": "2025-09-13T21:31:17.531Z",
+      "conversationHistory": [
+        {
+          "timestamp": "2025-09-13T21:31:17.531Z",
+          "userInput": "hello",
+          "userMessageId": "msg_1757799077531_4ajtmz3hn"
+        },
+        {
+          "timestamp": "2025-09-25T01:41:45.746Z",
+          "userInput": "hi",
+          "userMessageId": "msg_1758764505747_lfyq9f1j5"
+        }
+      ],
+      "personalityProfile": {},
+      "learningProgress": {},
+      "totalRoasts": 0,
+      "lastActivity": "2025-09-25T01:41:45.746Z"
+    }
+  },
+  "lastCleanup": "2025-09-13T00:00:00.000Z"
+}

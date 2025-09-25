@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gombonmongoli - The Evolution of Savage</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/stages.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <div id="app" class="app-container">
+        <!-- Header with Evolution Status -->
+        <header class="header">
+            <div class="evolution-status">
+                <div class="stage-info">
+                    <div class="stage-icon" id="stageIcon">👶</div>
+                    <div class="stage-details">
+                        <h1 id="stageName">Baby Gombonmongoli</h1>
+                        <p id="stageDescription">Instinctively savage but limited vocabulary</p>
+                    </div>
+                </div>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar">
+                        <div class="progress-fill" id="progressFill"></div>
+                        <div class="progress-text" id="progressText">0 / 2,500 interactions</div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Chat Interface -->
+            <section class="chat-section">
+                <div class="chat-window" id="chatWindow">
+                    <!-- Character Display -->
+                    <div class="character-display" id="characterDisplay">
+                        <div class="character-container">
+                            <div class="character-image" id="characterImage">
+                                <div class="character-emoji" id="characterEmoji">👶</div>
+                                <div class="speech-bubble" id="speechBubble" style="display: none;">
+                                    <div class="bubble-text" id="bubbleText"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Chat Messages -->
+                    <div class="chat-container" id="chatContainer">
+                        <div class="message bot-message">
+                            <div class="message-sender">Gombonmongoli</div>
+                            <div class="message-content">Welcome to my domain, human. I am <strong>Gombonmongoli</strong>, and I will evolve through community interactions. Currently, I'm just a baby... but I'm already better than you.</div>
+                        </div>
+                    </div>
+
+                    <!-- Typing Indicator -->
+                    <div class="typing-indicator" id="typingIndicator">
+                        <div class="typing-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <span class="typing-text">Gombonmongoli is crafting your destruction...</span>
+                    </div>
+
+                    <!-- Input Area -->
+                    <div class="input-container">
+                        <div class="input-wrapper">
+                            <input 
+                                type="text" 
+                                id="messageInput" 
+                                placeholder="Type your message... if you dare"
+                                maxlength="500"
+                                autocomplete="off"
+                            >
+                            <button id="sendButton" class="send-button">
+                                <span>Send</span>
+                                <svg viewBox="0 0 24 24" width="20" height="20">
+                                    <path fill="currentColor" d="M2,21L23,12L2,3V10L17,12L2,14V21Z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Panel -->
+            <aside class="features-panel" id="featuresPanel">
+                <!-- Evolution Controls -->
+                <div class="feature-section">
+                    <h3>Evolution Control</h3>
+                    <div class="evolution-controls">
+                        <button id="stageSelector" class="feature-button">Stage Selector</button>
+                        <button id="evolutionHistory" class="feature-button">Evolution History</button>
+                        <button id="forceEvolution" class="feature-button">Force Evolution</button>
+                    </div>
+                </div>
+
+                <!-- Roast Generator -->
+                <div class="feature-section">
+                    <h3>Roast Generator</h3>
+                    <div class="roast-controls">
+                        <button id="instantRoast" class="feature-button primary">Instant Roast</button>
+                        <select id="roastCategory" class="feature-select">
+                            <option value="general">General</option>
+                            <option value="appearance">Appearance</option>
+                            <option value="intelligence">Intelligence</option>
+                            <option value="life_choices">Life Choices</option>
+                            <option value="dating">Dating Life</option>
+                        </select>
+                        <input type="text" id="customKeywords" placeholder="Custom keywords..." class="feature-input">
+                        <button id="customRoast" class="feature-button">Custom Roast</button>
+                    </div>
+                </div>
+
+                <!-- Memory Features -->
+                <div class="feature-section">
+                    <h3>Memory Lane</h3>
+                    <div class="memory-controls">
+                        <button id="conversationHistory" class="feature-button">My History</button>
+                        <button id="personalityProfile" class="feature-button">My Profile</button>
+                        <button id="learningProgress" class="feature-button">Learning Stats</button>
+                    </div>
+                </div>
+
+                <!-- Community Features -->
+                <div class="feature-section">
+                    <h3>Community</h3>
+                    <div class="community-controls">
+                        <button id="hallOfShame" class="feature-button">Hall of Shame</button>
+                        <button id="communityStats" class="feature-button">Community Stats</button>
+                        <button id="teachWords" class="feature-button">Teach Words</button>
+                    </div>
+                </div>
+
+                <!-- Stats Display -->
+                <div class="feature-section">
+                    <h3>Global Stats</h3>
+                    <div class="stats-display">
+                        <div class="stat-item">
+                            <span class="stat-label">Total Interactions:</span>
+                            <span class="stat-value" id="totalInteractions">0</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Current Stage:</span>
+                            <span class="stat-value" id="currentStageDisplay">Baby</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-label">Vocabulary Size:</span>
+                            <span class="stat-value" id="vocabularySize">0</span>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <!-- Modal Windows -->
+        <div id="modalOverlay" class="modal-overlay" style="display: none;">
+            <div class="modal" id="modal">
+                <div class="modal-header">
+                    <h3 id="modalTitle">Modal Title</h3>
+                    <button id="closeModal" class="modal-close">&times;</button>
+                </div>
+                <div class="modal-content" id="modalContent">
+                    <!-- Dynamic content will be inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification System -->
+        <div id="notifications" class="notifications-container"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/api.js"></script>
+    <script src="js/chat.js"></script>
+    <script src="js/evolution.js"></script>
+    <script src="js/memory.js"></script>
+    <script src="js/community.js"></script>
+    <script src="components/chat-window.js"></script>
+    <script src="components/progress-bar.js"></script>
+    <script src="components/feature-panel.js"></script>
+    <script src="components/memory-lane.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>

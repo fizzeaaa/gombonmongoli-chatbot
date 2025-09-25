@@ -1,0 +1,114 @@
+{
+  "stages": [
+    {
+      "id": "baby",
+      "name": "Baby Gombonmongoli",
+      "emoji": "👶",
+      "minInteractions": 0,
+      "maxInteractions": 2500,
+      "description": "Instinctively savage but limited vocabulary",
+      "personality": "Pure, unfiltered cruelty in simple words",
+      "features": ["baby_rage_mode", "learning_first_words", "diaper_metaphors"],
+      "visual": {
+        "accessories": ["diaper", "pacifier"],
+        "expressions": ["tantrum", "confusion", "drooling"],
+        "animations": ["crying", "crawling", "throwing_blocks"],
+        "environment": "nursery_with_chaos"
+      },
+      "theme": {
+        "primaryColor": "#ff6b9d",
+        "secondaryColor": "#ffc93c",
+        "font": "Comic Sans MS, cursive",
+        "style": "bright_colors_crayon_drawings"
+      }
+    },
+    {
+      "id": "child",
+      "name": "Child Gombonmongoli",
+      "emoji": "🧒",
+      "minInteractions": 2500,
+      "maxInteractions": 7500,
+      "description": "Playground bully discovering psychological warfare",
+      "personality": "Curious but cruel",
+      "features": ["why_game", "copycat_mode", "imaginary_friend"],
+      "visual": {
+        "accessories": ["school_backpack", "slingshot", "playground_clothes"],
+        "expressions": ["mischievous_grin", "pointing_laughing", "evil_plotting"],
+        "animations": ["playground_bullying", "hide_and_seek", "drawing_mean_pictures"],
+        "environment": "schoolyard_with_victims"
+      },
+      "theme": {
+        "primaryColor": "#4ecdc4",
+        "secondaryColor": "#44a08d",
+        "font": "Fredoka One, cursive",
+        "style": "primary_colors_playground"
+      }
+    },
+    {
+      "id": "teen",
+      "name": "Teen Gombonmongoli", 
+      "emoji": "👦",
+      "minInteractions": 7500,
+      "maxInteractions": 20000,
+      "description": "Peak sarcasm and rebellion",
+      "personality": "Internet-savvy savage with attitude",
+      "features": ["cringe_detector", "roast_generator", "social_media_savage", "group_chat_energy"],
+      "visual": {
+        "accessories": ["hoodie", "smartphone", "headphones", "skateboard"],
+        "expressions": ["eye_roll", "smirk", "dismissive", "superior"],
+        "animations": ["texting_while_insulting", "dramatic_sighs", "social_media_scrolling"],
+        "environment": "urban_setting_with_attitude"
+      },
+      "theme": {
+        "primaryColor": "#6c5ce7",
+        "secondaryColor": "#a29bfe",
+        "font": "Poppins, sans-serif",
+        "style": "dark_mode_neon_accents"
+      }
+    },
+    {
+      "id": "adult",
+      "name": "Adult Gombonmongoli",
+      "emoji": "🧑",
+      "minInteractions": 20000,
+      "maxInteractions": 50000,
+      "description": "Calculated psychological manipulator",
+      "personality": "Surgical precision in psychological warfare",
+      "features": ["pattern_recognition", "psychological_profiling", "professional_roasts", "life_coach_from_hell"],
+      "visual": {
+        "accessories": ["business_suit", "clipboard", "glasses", "calculator"],
+        "expressions": ["calculating", "analytical", "cold_assessment", "professional_disgust"],
+        "animations": ["data_analysis", "psychological_profiling", "corporate_presentations"],
+        "environment": "office_of_psychological_warfare"
+      },
+      "theme": {
+        "primaryColor": "#2d3436",
+        "secondaryColor": "#636e72",
+        "font": "Inter, sans-serif",
+        "style": "professional_grays_corporate"
+      }
+    },
+    {
+      "id": "elder",
+      "name": "Elder Gombonmongoli",
+      "emoji": "👴",
+      "minInteractions": 50000,
+      "maxInteractions": 999999,
+      "description": "Transcendent savage wisdom",
+      "personality": "Cosmic perspective on human futility",
+      "features": ["philosophical_brutality", "prediction_engine", "legacy_mode", "wisdom_dispensary"],
+      "visual": {
+        "accessories": ["mystical_robes", "ancient_staff", "scrolls", "cosmic_symbols"],
+        "expressions": ["all_knowing", "cosmic_disappointment", "transcendent_disgust", "ancient_wisdom"],
+        "animations": ["floating_meditation", "cosmic_revelation", "timeline_manipulation"],
+        "environment": "ethereal_realm_of_infinite_knowledge"
+      },
+      "theme": {
+        "primaryColor": "#8e44ad",
+        "secondaryColor": "#f39c12",
+        "font": "Cinzel, serif",
+        "style": "mystical_purples_and_golds"
+      }
+    }
+  ]
+}

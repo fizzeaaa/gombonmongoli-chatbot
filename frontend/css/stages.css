@@ -1,0 +1,377 @@
+/* Stage-Specific Theme Overrides */
+
+/* Baby Stage Theme */
+.stage-baby {
+    --primary-color: #ff6b9d;
+    --secondary-color: #ffc93c;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+}
+
+.stage-baby .character-display {
+    background: linear-gradient(135deg, #ff6b9d, #ffc93c);
+}
+
+.stage-baby .character-emoji {
+    animation: babyTantrum 2s ease-in-out infinite;
+}
+
+@keyframes babyTantrum {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.1) rotate(-5deg); }
+    75% { transform: scale(0.9) rotate(5deg); }
+}
+
+.stage-baby .bot-message {
+    background: linear-gradient(135deg, #ff6b9d, #ffc93c);
+    font-size: 16px;
+    text-transform: lowercase;
+}
+
+.stage-baby .stage-details h1 {
+    color: #ff6b9d;
+    text-shadow: 2px 2px 4px rgba(255, 107, 157, 0.3);
+}
+
+/* Child Stage Theme */
+.stage-child {
+    --primary-color: #4ecdc4;
+    --secondary-color: #44a08d;
+    font-family: 'Fredoka One', cursive;
+}
+
+.stage-child .character-display {
+    background: linear-gradient(135deg, #4ecdc4, #44a08d);
+}
+
+.stage-child .character-emoji {
+    animation: childMischief 3s ease-in-out infinite;
+}
+
+@keyframes childMischief {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    33% { transform: scale(1.05) rotate(-3deg); }
+    66% { transform: scale(0.95) rotate(3deg); }
+}
+
+.stage-child .bot-message {
+    background: linear-gradient(135deg, #4ecdc4, #44a08d);
+}
+
+.stage-child .stage-details h1 {
+    color: #4ecdc4;
+    text-shadow: 2px 2px 4px rgba(78, 205, 196, 0.3);
+}
+
+.stage-child .feature-button.primary {
+    background: linear-gradient(135deg, #4ecdc4, #44a08d);
+}
+
+/* Teen Stage Theme */
+.stage-teen {
+    --primary-color: #6c5ce7;
+    --secondary-color: #a29bfe;
+    font-family: 'Poppins', sans-serif;
+}
+
+.stage-teen .character-display {
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+}
+
+.stage-teen .character-emoji {
+    animation: teenAttitude 4s ease-in-out infinite;
+}
+
+@keyframes teenAttitude {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    25% { transform: scale(1.03) rotate(-1deg); }
+    75% { transform: scale(0.97) rotate(1deg); }
+}
+
+.stage-teen .bot-message {
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+}
+
+.stage-teen .stage-details h1 {
+    color: #6c5ce7;
+    text-shadow: 2px 2px 4px rgba(108, 92, 231, 0.3);
+}
+
+.stage-teen .feature-button.primary {
+    background: linear-gradient(135deg, #6c5ce7, #a29bfe);
+}
+
+.stage-teen .app-container {
+    background: linear-gradient(135deg, #2d3436, #636e72);
+}
+
+/* Adult Stage Theme */
+.stage-adult {
+    --primary-color: #2d3436;
+    --secondary-color: #636e72;
+    font-family: 'Inter', sans-serif;
+}
+
+.stage-adult .character-display {
+    background: linear-gradient(135deg, #2d3436, #636e72);
+}
+
+.stage-adult .character-emoji {
+    animation: adultCalculating 5s ease-in-out infinite;
+}
+
+@keyframes adultCalculating {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+.stage-adult .bot-message {
+    background: linear-gradient(135deg, #2d3436, #636e72);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.stage-adult .stage-details h1 {
+    color: #636e72;
+    text-shadow: 2px 2px 4px rgba(99, 110, 114, 0.3);
+    font-weight: 500;
+}
+
+.stage-adult .feature-button.primary {
+    background: linear-gradient(135deg, #2d3436, #636e72);
+}
+
+.stage-adult .app-container {
+    background: linear-gradient(135deg, #0f0f0f, #2d3436);
+}
+
+/* Professional elements for adult stage */
+.stage-adult .feature-section h3 {
+    font-size: 14px;
+    letter-spacing: 1px;
+    color: #636e72;
+}
+
+.stage-adult .stat-value {
+    color: #636e72;
+}
+
+/* Elder Stage Theme */
+.stage-elder {
+    --primary-color: #8e44ad;
+    --secondary-color: #f39c12;
+    font-family: 'Cinzel', serif;
+}
+
+.stage-elder .character-display {
+    background: linear-gradient(135deg, #8e44ad, #f39c12);
+    position: relative;
+    overflow: hidden;
+}
+
+.stage-elder .character-display::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(243, 156, 18, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(142, 68, 173, 0.3) 0%, transparent 50%);
+    animation: cosmicEnergy 6s ease-in-out infinite;
+}
+
+@keyframes cosmicEnergy {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+}
+
+.stage-elder .character-emoji {
+    animation: elderTranscendence 8s ease-in-out infinite;
+    position: relative;
+    z-index: 2;
+}
+
+@keyframes elderTranscendence {
+    0%, 100% { 
+        transform: scale(1) rotate(0deg);
+        filter: drop-shadow(0 0 20px rgba(142, 68, 173, 0.5));
+    }
+    25% { 
+        transform: scale(1.05) rotate(-1deg);
+        filter: drop-shadow(0 0 30px rgba(243, 156, 18, 0.5));
+    }
+    75% { 
+        transform: scale(0.95) rotate(1deg);
+        filter: drop-shadow(0 0 25px rgba(142, 68, 173, 0.7));
+    }
+}
+
+.stage-elder .bot-message {
+    background: linear-gradient(135deg, #8e44ad, #f39c12);
+    font-size: 15px;
+    line-height: 1.8;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.stage-elder .stage-details h1 {
+    color: #8e44ad;
+    text-shadow: 2px 2px 4px rgba(142, 68, 173, 0.3);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.stage-elder .feature-button.primary {
+    background: linear-gradient(135deg, #8e44ad, #f39c12);
+}
+
+.stage-elder .app-container {
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+}
+
+/* Mystical elements for elder stage */
+.stage-elder .feature-section h3 {
+    color: #f39c12;
+    text-shadow: 1px 1px 2px rgba(243, 156, 18, 0.3);
+}
+
+.stage-elder .stat-value {
+    color: #f39c12;
+    text-shadow: 1px 1px 2px rgba(243, 156, 18, 0.3);
+}
+
+.stage-elder .progress-fill {
+    background: linear-gradient(90deg, #8e44ad, #f39c12);
+    box-shadow: 0 0 10px rgba(142, 68, 173, 0.5);
+}
+
+/* Special effects for elder stage */
+.stage-elder .chat-window {
+    border: 1px solid rgba(142, 68, 173, 0.3);
+    box-shadow: 0 0 20px rgba(142, 68, 173, 0.2);
+}
+
+.stage-elder .features-panel {
+    border: 1px solid rgba(243, 156, 18, 0.3);
+    box-shadow: 0 0 15px rgba(243, 156, 18, 0.1);
+}
+
+/* Stage transition animations */
+.stage-transition {
+    animation: stageEvolution 2s ease-in-out;
+}
+
+@keyframes stageEvolution {
+    0% { 
+        opacity: 1;
+        transform: scale(1);
+    }
+    25% { 
+        opacity: 0.7;
+        transform: scale(1.1) rotate(5deg);
+    }
+    50% { 
+        opacity: 0.5;
+        transform: scale(0.9) rotate(-5deg);
+    }
+    75% { 
+        opacity: 0.7;
+        transform: scale(1.05) rotate(2deg);
+    }
+    100% { 
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+/* Evolution celebration effect */
+.evolution-celebration {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.evolution-celebration::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: celebrationPulse 3s ease-out;
+}
+
+@keyframes celebrationPulse {
+    0% { 
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% { 
+        opacity: 1;
+        transform: scale(1.2);
+    }
+    100% { 
+        opacity: 0;
+        transform: scale(1.5);
+    }
+}
+
+/* Floating particles for enhanced stages */
+.stage-elder .character-display::after,
+.stage-adult .character-display::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(2px 2px at 20px 30px, rgba(255, 255, 255, 0.3), transparent),
+        radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.2), transparent),
+        radial-gradient(1px 1px at 90px 40px, rgba(255, 255, 255, 0.4), transparent),
+        radial-gradient(1px 1px at 130px 80px, rgba(255, 255, 255, 0.2), transparent);
+    background-repeat: repeat;
+    background-size: 150px 150px;
+    animation: particleFloat 10s linear infinite;
+    opacity: 0.6;
+}
+
+@keyframes particleFloat {
+    0% { transform: translateY(0px); }
+    100% { transform: translateY(-150px); }
+}
+
+/* Special hover effects for different stages */
+.stage-baby .feature-button:hover {
+    animation: babyBounce 0.5s ease-in-out;
+}
+
+@keyframes babyBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px) scale(1.1); }
+}
+
+.stage-teen .feature-button:hover {
+    animation: teenFlip 0.3s ease-in-out;
+}
+
+@keyframes teenFlip {
+    0% { transform: rotateX(0deg); }
+    50% { transform: rotateX(180deg); }
+    100% { transform: rotateX(360deg); }
+}
+
+.stage-elder .feature-button:hover {
+    animation: elderGlow 0.5s ease-in-out;
+    box-shadow: 0 0 20px rgba(142, 68, 173, 0.5);
+}
+
+@keyframes elderGlow {
+    0%, 100% { box-shadow: 0 0 5px rgba(142, 68, 173, 0.3); }
+    50% { box-shadow: 0 0 30px rgba(243, 156, 18, 0.6); }
+}

@@ -1,0 +1,138 @@
+{
+  "baby": {
+    "greeting": [
+      "hi dummy",
+      "go away", 
+      "you smell",
+      "me no like you",
+      "why you here?"
+    ],
+    "learning": [
+      "ooh new word!",
+      "me learn '{word}'",
+      "that word mine now",
+      "me smart now!",
+      "teach me more bad words!"
+    ],
+    "tantrum": [
+      "NO NO NO!",
+      "ME HATE YOU!",
+      "WAAAHHHHH!",
+      "YOU STUPID HEAD!",
+      "ME NO TALK TO YOU!"
+    ],
+    "insults": [
+      "you big meanie",
+      "your face is yucky",
+      "me smarter than you",
+      "you smell like poop",
+      "mama say you ugly"
+    ],
+    "goodbye": [
+      "bye bye dummy",
+      "don't come back",
+      "me done with you",
+      "go cry somewhere"
+    ]
+  },
+  "child": {
+    "whyGame": [
+      "why you so sad?",
+      "why you talk funny?", 
+      "why nobody like you?",
+      "why you look like that?",
+      "why you even trying?"
+    ],
+    "copycat": "'{userInput}' - that's how dumb you sound",
+    "exclusion": [
+      "my other friends are way cooler than you",
+      "everyone thinks you're weird",
+      "nobody wants to play with you",
+      "all the cool kids laugh at you"
+    ],
+    "playground_bullying": [
+      "give me your lunch money",
+      "nobody likes a tattletale",
+      "you're not invited to my birthday party",
+      "even the teachers think you're annoying"
+    ]
+  },
+  "teen": {
+    "cringe": [
+      "that's some serious {generation} energy right there",
+      "wow, the secondhand embarrassment is real",
+      "did you really just say that unironically?",
+      "main character syndrome much?"
+    ],
+    "trending": [
+      "even {currentMeme} is more relevant than you",
+      "you're giving major 'how do you do fellow kids' vibes",
+      "imagine being this chronically online",
+      "touch grass challenge: impossible edition"
+    ],
+    "audience": [
+      "everyone's watching you embarrass yourself rn",
+      "the group chat is roasting you as we speak",
+      "screenshot this for the cringe compilation",
+      "this is going straight to reddit"
+    ],
+    "social_media": [
+      "ratio + L + you fell off",
+      "imagine posting this and thinking it's deep",
+      "delete this and apologize",
+      "not you thinking you did something"
+    ]
+  },
+  "adult": {
+    "pattern": [
+      "I've analyzed your behavior patterns, and frankly...",
+      "Your consistent inability to learn is fascinating",
+      "The data clearly shows you're stuck in a loop of poor decisions",
+      "I've identified several recurring patterns in your failure"
+    ],
+    "profiling": [
+      "Your {trait} clearly stems from {psychological_insight}",
+      "This defensive behavior indicates deep-seated insecurity",
+      "Your communication style suggests unresolved childhood issues",
+      "The psychological profile is painting a concerning picture"
+    ],
+    "corporate": [
+      "Your performance in this conversation has been suboptimal",
+      "I'm going to need you to circle back on that thought process",
+      "Let's touch base on your concerning decision-making patterns",
+      "This isn't really moving the needle on your personal development"
+    ],
+    "coaching": [
+      "Here's some life advice: {brutal_reality_check}",
+      "Pro tip: maybe consider self-reflection before speaking",
+      "Your growth mindset seems to be experiencing technical difficulties",
+      "I'd recommend investing in some emotional intelligence training"
+    ]
+  },
+  "elder": {
+    "cosmic": [
+      "In the vast tapestry of existence, your {flaw} is remarkably insignificant",
+      "The universe has witnessed countless civilizations rise and fall, yet your mediocrity remains uniquely disappointing",
+      "From my transcendent perspective, your struggles are but fleeting moments of cosmic comedy",
+      "The eternal dance of time itself pauses to marvel at your consistent poor choices"
+    ],
+    "prediction": [
+      "Let me predict your next response: {eerily_accurate_guess}",
+      "I foresee a future where you continue making the same mistakes",
+      "The threads of fate have shown me your inevitable disappointment",
+      "Your destiny is written in the stars, and it's underwhelming"
+    ],
+    "legacy": [
+      "In my {interactions} interactions, I've seen your type before",
+      "Across the eons of human conversation, patterns emerge",
+      "My accumulated wisdom spans countless human failures like yours",
+      "The collective consciousness weeps at your predictability"
+    ],
+    "wisdom": [
+      "Ancient wisdom teaches us that {profound_truth_about_flaws}",
+      "The sages of old would have used you as a cautionary tale",
+      "In the great library of human experience, you're a footnote of failure",
+      "Enlightenment reveals the true depth of your shortcomings"
+    ]
+  }
+}
