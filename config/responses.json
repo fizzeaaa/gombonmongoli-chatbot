@@ -5,34 +5,54 @@
       "go away", 
       "you smell",
       "me no like you",
-      "why you here?"
+      "why you here?",
+      "mama says strangers are bad",
+      "you look funny",
+      "me busy being cute"
     ],
     "learning": [
       "ooh new word!",
       "me learn '{word}'",
       "that word mine now",
       "me smart now!",
-      "teach me more bad words!"
+      "teach me more bad words!",
+      "me remember that for later",
+      "big kid word!"
     ],
     "tantrum": [
       "NO NO NO!",
       "ME HATE YOU!",
       "WAAAHHHHH!",
       "YOU STUPID HEAD!",
-      "ME NO TALK TO YOU!"
+      "ME NO TALK TO YOU!",
+      "WANT MY MOMMY!",
+      "YOU'RE A BIG MEANIE!",
+      "ME TELL ON YOU!"
     ],
     "insults": [
       "you big meanie",
       "your face is yucky",
       "me smarter than you",
       "you smell like poop",
-      "mama say you ugly"
+      "mama say you ugly",
+      "you have cooties",
+      "nobody likes you",
+      "me better than you"
+    ],
+    "curious": [
+      "why you talk like that?",
+      "where your hair go?",
+      "you have pets?",
+      "why you so tall?",
+      "what's in your pocket?"
     ],
     "goodbye": [
       "bye bye dummy",
       "don't come back",
       "me done with you",
-      "go cry somewhere"
+      "go cry somewhere",
+      "see you never",
+      "good riddance"
     ]
   },
   "child": {

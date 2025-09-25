@@ -6,6 +6,31 @@ class ResponseGenerator {
     this.responsesPath = path.join(__dirname, '../../config/responses.json');
     this.keywordsPath = path.join(__dirname, '../../config/keywords.json');
     this.stagesPath = path.join(__dirname, '../../config/stages.json');
+    
+    // Track user patterns for adaptive responses
+    this.userPatterns = new Map();
+    this.recentResponses = new Map(); // Track recent responses per user
+  }
+
+  // Generate mood-based personality variations
+  getMoodModifier(stage, totalInteractions) {
+    const moods = {
+      baby: ['cranky', 'playful', 'confused', 'demanding', 'tantrum'],
+      child: ['mischievous', 'curious', 'bratty', 'show-off', 'competitive'],
+      teen: ['sarcastic', 'dramatic', 'rebellious', 'judgemental', 'edgy'],
+      adult: ['analytical', 'condescending', 'professional', 'passive-aggressive', 'disappointed'],
+      elder: ['philosophical', 'omniscient', 'cryptic', 'transcendent', 'ancient']
+    };
+    
+    const currentMoods = moods[stage] || moods.adult;
+    const baseMood = this.randomChoice(currentMoods);
+    
+    // Mood can shift based on interactions (more interactions = more complex moods)
+    if (totalInteractions > 100 && Math.random() < 0.3) {
+      return `${baseMood}-evolved`; // e.g., "sarcastic-evolved"
+    }
+    
+    return baseMood;
   }
 
   async generateResponse({ userMessage, userId, sessionId, stage, totalInteractions }) {
@@ -34,29 +59,67 @@ class ResponseGenerator {
     }
   }
 
-  selectResponse(userMessage, stageResponses, stageInfo, totalInteractions) {
+  selectResponse(userMessage, stageResponses, stageInfo, totalInteractions, userId = 'default') {
     const lowerMessage = userMessage.toLowerCase().trim();
     
-    // Greeting detection
+    // Track user patterns for adaptation
+    this.updateUserPatterns(userId, userMessage);
+    const userPattern = this.getUserPattern(userId);
+    const currentMood = this.getMoodModifier(stageInfo.id, totalInteractions);
+    
+    // Get recent responses to avoid repetition
+    const recentResponses = this.recentResponses.get(userId) || [];
+    
+    // Adaptive greeting based on user behavior
     if (this.isGreeting(lowerMessage)) {
+      const greetingResponses = this.adaptResponseToUser(
+        stageResponses.greeting || stageResponses.insults || ["hello, disappointment"],
+        userPattern,
+        currentMood
+      );
+      
+      const response = this.randomChoice(greetingResponses, recentResponses);
+      this.trackResponse(userId, response);
+      
       return {
-        text: this.randomChoice(stageResponses.greeting || stageResponses.insults || ["hello, disappointment"]),
+        text: this.processTemplate(response),
         type: 'greeting',
-        trigger: 'greeting_detected'
+        trigger: 'greeting_detected',
+        mood: currentMood
       };
     }
 
-    // Goodbye detection
+    // Adaptive goodbye
     if (this.isGoodbye(lowerMessage)) {
+      const goodbyeResponses = this.adaptResponseToUser(
+        stageResponses.goodbye || stageResponses.insults || ["finally leaving? smart choice"],
+        userPattern,
+        currentMood
+      );
+      
+      const response = this.randomChoice(goodbyeResponses, recentResponses);
+      this.trackResponse(userId, response);
+      
       return {
-        text: this.randomChoice(stageResponses.goodbye || stageResponses.insults || ["finally leaving? smart choice"]),
+        text: this.processTemplate(response),
         type: 'goodbye',
-        trigger: 'goodbye_detected'
+        trigger: 'goodbye_detected',
+        mood: currentMood
       };
     }
 
-    // Stage-specific response patterns
-    return this.getStageSpecificResponse(lowerMessage, stageResponses, stageInfo, totalInteractions);
+    // Stage-specific response patterns with user adaptation
+    const stageResponse = this.getStageSpecificResponse(lowerMessage, stageResponses, stageInfo, totalInteractions, userId);
+    
+    // Apply mood and user pattern adaptations
+    if (stageResponse.text) {
+      const adaptedResponses = this.adaptResponseToUser([stageResponse.text], userPattern, currentMood);
+      stageResponse.text = this.processTemplate(adaptedResponses[0]);
+      stageResponse.mood = currentMood;
+      this.trackResponse(userId, stageResponse.text);
+    }
+    
+    return stageResponse;
   }
 
   getStageSpecificResponse(message, responses, stageInfo, totalInteractions) {
@@ -230,46 +293,117 @@ class ResponseGenerator {
   }
 
   getElderResponse(message, responses, totalInteractions) {
-    // Cosmic perspective
+    // Cosmic perspective with dynamic variables
     if (Math.random() < 0.4) {
-      const flaw = this.identifyFlaw(message);
+      const template = this.randomChoice(responses.cosmic || ["In the vast tapestry of existence, your {flaw} is remarkably insignificant"]);
       return {
-        text: this.randomChoice(responses.cosmic || ["In the vast tapestry of existence, your {flaw} is remarkably insignificant"])
-          .replace('{flaw}', flaw),
+        text: this.processTemplate(template, { flaw: this.identifyFlaw(message) }),
         type: 'cosmic',
         trigger: 'philosophical_brutality'
       };
     }
 
-    // Prediction engine
+    // Enhanced prediction engine
     if (Math.random() < 0.3) {
-      const prediction = this.predictUserResponse(message);
+      const template = this.randomChoice(responses.prediction || ["Let me predict your next response: {prediction}"]);
       return {
-        text: this.randomChoice(responses.prediction || ["Let me predict your next response: {prediction}"])
-          .replace('{eerily_accurate_guess}', prediction),
+        text: this.processTemplate(template, { prediction: this.predictUserResponse(message) }),
         type: 'prediction',
         trigger: 'prediction_engine'
       };
     }
 
-    // Legacy wisdom
+    // Legacy wisdom with interaction count
     if (Math.random() < 0.25) {
+      const template = this.randomChoice(responses.legacy || ["In my {interactions} interactions, I've seen your type before"]);
       return {
-        text: this.randomChoice(responses.legacy || [`In my ${totalInteractions} interactions, I've seen your type before`])
-          .replace('{interactions}', totalInteractions.toLocaleString()),
+        text: this.processTemplate(template, { interactions: totalInteractions.toLocaleString() }),
         type: 'legacy',
         trigger: 'legacy_mode'
       };
     }
 
-    // Ancient wisdom
-    const profoundTruth = this.generateProfoundTruth(message);
+    // Ancient wisdom with profound truths
+    const template = this.randomChoice(responses.wisdom || ["Ancient wisdom teaches us that {profound_truth}"]);
     return {
-      text: this.randomChoice(responses.wisdom || ["Ancient wisdom teaches us that {profound_truth}"])
-        .replace('{profound_truth_about_flaws}', profoundTruth),
+      text: this.processTemplate(template, { profound_truth: this.generateProfoundTruth(message) }),
       type: 'wisdom',
       trigger: 'wisdom_dispensary'
     };
+  }
+
+  // User behavior adaptation methods
+  updateUserPatterns(userId, message) {
+    if (!this.userPatterns.has(userId)) {
+      this.userPatterns.set(userId, {
+        messageCount: 0,
+        avgLength: 0,
+        commonWords: {},
+        responseTypes: {},
+        lastSeen: Date.now()
+      });
+    }
+    
+    const pattern = this.userPatterns.get(userId);
+    pattern.messageCount++;
+    pattern.avgLength = (pattern.avgLength * (pattern.messageCount - 1) + message.length) / pattern.messageCount;
+    pattern.lastSeen = Date.now();
+    
+    // Track common words
+    message.toLowerCase().split(' ').forEach(word => {
+      if (word.length > 3) {
+        pattern.commonWords[word] = (pattern.commonWords[word] || 0) + 1;
+      }
+    });
+  }
+
+  getUserPattern(userId) {
+    return this.userPatterns.get(userId) || { messageCount: 0, avgLength: 0, commonWords: {}, responseTypes: {} };
+  }
+
+  adaptResponseToUser(responses, userPattern, mood) {
+    // If user is new, return standard responses
+    if (userPattern.messageCount < 3) {
+      return responses;
+    }
+    
+    const adaptedResponses = [...responses];
+    
+    // Add mood-specific variations
+    if (mood === 'evolved' || mood.includes('evolved')) {
+      adaptedResponses.push(...this.getEvolvedResponses(responses));
+    }
+    
+    // Adapt based on user's message patterns
+    if (userPattern.avgLength > 50) {
+      adaptedResponses.push("Wow, an essay. Too bad quantity doesn't equal quality.");
+      adaptedResponses.push("Using more words doesn't make you sound smarter, just more desperate.");
+    } else if (userPattern.avgLength < 10) {
+      adaptedResponses.push("One-word responses? How intellectually stimulating.");
+      adaptedResponses.push("Your communication skills are as limited as your vocabulary.");
+    }
+    
+    return adaptedResponses;
+  }
+
+  getEvolvedResponses(baseResponses) {
+    return baseResponses.map(response => 
+      response + " ...and that's just the beginning of your problems."
+    );
+  }
+
+  trackResponse(userId, response) {
+    if (!this.recentResponses.has(userId)) {
+      this.recentResponses.set(userId, []);
+    }
+    
+    const recent = this.recentResponses.get(userId);
+    recent.push(response);
+    
+    // Keep only last 5 responses
+    if (recent.length > 5) {
+      recent.shift();
+    }
   }
 
   // Helper methods
@@ -356,8 +490,62 @@ class ResponseGenerator {
     return truths[Math.floor(Math.random() * truths.length)];
   }
 
-  randomChoice(array) {
+  // Enhanced randomization with weighted selection and anti-repetition
+  randomChoice(array, previousChoices = [], avoidRecent = true) {
+    if (!array || array.length === 0) return "I'm speechless... which says something about you.";
+    
+    // If we have previous choices, try to avoid recent ones (60% of the time)
+    if (avoidRecent && previousChoices.length > 0 && Math.random() < 0.6) {
+      const recentChoices = previousChoices.slice(-3); // Last 3 responses
+      const freshChoices = array.filter(choice => !recentChoices.includes(choice));
+      
+      if (freshChoices.length > 0) {
+        return this.weightedRandomChoice(freshChoices);
+      }
+    }
+    
+    return this.weightedRandomChoice(array);
+  }
+
+  // Weighted random selection - some responses are more likely
+  weightedRandomChoice(array) {
+    // Create weights: first and last items are more likely
+    const weights = array.map((item, index) => {
+      if (index === 0 || index === array.length - 1) return 3; // Boost first/last
+      if (index === Math.floor(array.length / 2)) return 2; // Boost middle
+      return 1; // Normal weight
+    });
+
+    const totalWeight = weights.reduce((sum, weight) => sum + weight, 0);
+    let random = Math.random() * totalWeight;
+    
+    for (let i = 0; i < array.length; i++) {
+      random -= weights[i];
+      if (random <= 0) {
+        return array[i];
+      }
+    }
+    
     return array[Math.floor(Math.random() * array.length)];
+  }
+
+  // Dynamic variable substitution for personalized responses
+  processTemplate(template, variables = {}) {
+    const defaultVariables = {
+      trait: this.randomChoice(['stubbornness', 'ignorance', 'predictability', 'mediocrity', 'basic-ness']),
+      insight: this.randomChoice(['childhood trauma', 'social media addiction', 'main character syndrome', 'chronic insecurity']),
+      generation: this.randomChoice(['boomer', 'millennial', 'gen-z', 'chronically online']),
+      flaw: this.randomChoice(['existence', 'life choices', 'communication style', 'thought process']),
+      prediction: this.randomChoice(['something defensive', 'a weak comeback', 'exactly what you just typed', 'pure cringe']),
+      currentMeme: this.randomChoice(['that one TikTok trend', 'your last Instagram story', 'whatever\'s trending', 'basic content']),
+      interactions: Math.floor(Math.random() * 50000) + 10000 // Random high number
+    };
+
+    const allVariables = { ...defaultVariables, ...variables };
+    
+    return template.replace(/\{(\w+)\}/g, (match, key) => {
+      return allVariables[key] || match;
+    });
   }
 
   calculateProgressPercent(totalInteractions, stages) {
