@@ -4,10 +4,10 @@
   "description": "AI-powered evolving chatbot with roasting capabilities",
   "main": "backend/server.js",
   "scripts": {
-    "start": "cd backend && npm install && npm start",
+    "start": "node backend/server.js",
     "dev": "cd backend && npm run dev",
     "install-deps": "cd backend && npm install",
-    "build": "echo 'No build step required for this project'",
+    "build": "cd backend && npm install",
     "test": "cd backend && npm test"
   },
   "engines": {
